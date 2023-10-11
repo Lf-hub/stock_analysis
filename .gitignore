@@ -131,3 +131,6 @@ GitHub.sublime-settings
 !.vscode/extensions.json 
 .history
 .vscode
+
+# Pastas
+files/
