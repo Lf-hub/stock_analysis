@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block nav %}
+{% endblock %}
+{% block content-table %}
+<thead>
+    <tr>
+        <th>Concurso</th>
+        <th>Pares</th>
+        <th>Impares</th>
+        <th>Mestre</th>
+        <th>Quadrante 1</th>
+        <th>Quadrante 2</th>
+        <th>Quadrante 3</th>
+        <th>Quadrante 4</th>
+    </tr>
+</thead>
+<tbody>
+    {% for line in object_list %}
+        <tr>
+            <td>{{line.content_json.media_par}}</td>
+            <td>{{line.content_json.media_impar}}</td>
+            <td>{{line.content_json.media_mestre}}</td>
+            <td>{{line.content_json.quadrante.quad1.media_quad1}}</td>
+            <td>{{line.content_json.quadrante.quad2.media_quad2}}</td>
+            <td>{{line.content_json.quadrante.quad3.media_quad3}}</td>
+            <td>{{line.content_json.quadrante.quad4.media_quad4}}</td>
+        </tr>
+    {% endfor %}
+</tbody>
+{% endblock content-table %}
