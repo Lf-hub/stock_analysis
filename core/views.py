@@ -37,7 +37,7 @@ class APIProcessView(View):
                 if site.slug == 'yahoo':
                     ConsultYahoo().main(asset_list)
                 elif site.slug == 'coingecko':
-                    ConsultAPI.main(asset_type)
+                    ConsultAPI().main()
         else:
             folder_path = "/home/carol/Área de Trabalho/projetos/stock_analysis/arquivos_teste"
             PreviewPrice(folder_path).main()

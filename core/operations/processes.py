@@ -19,13 +19,14 @@ from sklearn.model_selection import train_test_split
 
 class ConsultAPI:
     
+    @staticmethod
     def get_content_coingecko():
         url = "https://api.coingecko.com/api/v3/coins/bitcoin"
         response = requests.get(url)
         data = response.json()
 
-    def main():
-        pass
+    def main(self):
+        self.get_content_coingecko()
 
 
 class ConsultYahoo:
