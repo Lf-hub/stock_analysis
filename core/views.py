@@ -53,15 +53,17 @@ class CryptoCurrency(View):
         for code in crypto_codes:
             url = f"https://api.coingecko.com/api/v3/simple/price?ids={code.slug}&vs_currencies=brl"
             response = requests.get(url)
-            value = float(response.json().get(f'{code.slug}').get('brl')) if response.json() else 0
-            data.append({"key":code.name, "value":value})
+            if response.status_code in [200,2001]:
+                value = float(response.json().get(f'{code.slug}').get('brl'))
+            else:
+                value = 0
+            result = analyze_bitcoin(code.slug)
+            data.append({"key":code.name, "value":value, "result":result})
         return render(request, self.template_name, {'content': data})
     
     def post(self, request, *args, **kwargs):
-        analyze_bitcoin()
         # # Agende a execução da análise a cada 10 minutos.
         # schedule.every(10).minutes.do(analyze_bitcoin)
-
         # while True:
         #     schedule.run_pending()
         #     time.sleep(1)

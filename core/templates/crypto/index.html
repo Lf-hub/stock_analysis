@@ -6,6 +6,9 @@
         <tr>
             <th>Ativo</th>
             <th>Valor</th>
+            <th>Média Móvel</th>
+            <th>Bandas de Bollinger</th>
+            <th>RSI</th>
         </tr>
     </thead>
     <tbody>
@@ -13,6 +16,9 @@
             <tr>
                 <td>{{ item.key }}</td>
                 <td>{{ item.value }}</td>
+                <td>{{ item.result.SMA }}</td>
+                <td>{{ item.result.Bollinger }}</td>
+                <td>{{ item.result.RSI }}</td>
             </tr>
         {% endfor %}
     </tbody>
