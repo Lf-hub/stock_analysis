@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="card">
+    <table class="table" style="width: 100%;">
+        <thead class="body-title">
+            <tr class="bg-gray-200 p-2">
+                <th>Papeis</th>
+                <th>Cotação</th>
+                <th>PL</th>
+                <th>PVP</th>
+                <th>DY</th>
+                <th>ROE</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for line, value in content.items %}
+                <tr class="list-group-item-action">
+                    <td>{{ line }}</td>
+                    <td>{{ value.cotacao }}</a></td>
+                    <td>{{ value.pl }}</td>
+                    <td>{{ value.pvp }}</td>
+                    <td>{{ value.dy }}</td>
+                    <td>{{ value.roe }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% endblock content %}
