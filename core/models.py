@@ -56,3 +56,14 @@ class Assets(models.Model):
     
     def __str__(self):
         return self.name
+
+class Companies(models.Model):
+    name = models.CharField(verbose_name="Nome", max_length=100)
+    slug = models.CharField(verbose_name="Ticker", max_length=10)
+    is_active = models.BooleanField(verbose_name="Está Ativo?", default=True)
+
+    class Meta:
+        verbose_name = 'Empresa'
+    
+    def __str__(self):
+        return self.name

@@ -17,7 +17,9 @@ class IndexView(View):
         df = fundamentus.get_resultado()
         df['papel'] = df.index.str[:4]
         df_agrupado = df.drop_duplicates(subset=["papel"]).round(2)
-        # TODO Chamar função para verificar se todos os tickes estao ativos na B3
+        
+        # TODO Criar tabela para armazenar nome ticker se esta ativa ou nao das empresas Filtrar a tabelas pelas astivas
+
         # df_agrupado['traded_recently'] = df.index.map(lambda papel: self.get_traded_recently(papel))
         # df_filter = df_agrupado[df_agrupado['traded_recently']].round(2)
         data = df_agrupado.to_dict(orient='index')
