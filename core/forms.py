@@ -1,5 +1,6 @@
 from django import forms
-from core.models import *
+from core.models import Assets, AssetsType, APIConnections, ImportFile
+
 
 class APIForm(forms.Form):
     asset = forms.ModelChoiceField(queryset=Assets.objects.all(), required=False, label=("Ativos"))
@@ -8,3 +9,10 @@ class APIForm(forms.Form):
 
     def __str__(self):
         return "APIForm"
+
+class ImportForm(forms.ModelForm):
+    file = forms.FileField(label="Arquivo")
+    
+    class Meta:
+        model = ImportFile
+        fields = ['file']

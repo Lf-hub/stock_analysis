@@ -1,5 +1,5 @@
 import requests
-from core.models import APIConnections, AssetsType, Assets
+from core.models import APIConnections, AssetsType, Assets, Companies
 
 
 def get_site(pk):
@@ -14,6 +14,17 @@ def get_asset_type(id_list):
 def get_content_api(url):
     response = requests.get(url)
     return response.json()
+
+def save_companies(data):
+    '''
+    Save companies in database
+    data = dataframe
+    '''
+    for index, row in data.iterrows():
+        name = row['Nome do Ativo']
+        slug = row['Ativo']
+        company_instance = Companies(name=name, slug=slug, is_active=True)
+        company_instance.save()
 
 # def get_bitcoin_price_history():
 #     features = [

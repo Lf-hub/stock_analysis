@@ -1,24 +1,13 @@
 {% extends "base.html" %}
 
-{% block nav %}
-{% endblock %}
-{% block content-table %}
-<thead>
-    <tr>
-        <th>Jogo</th>
-        <th>Numeros</th>
-    </tr>
-</thead>
-<tbody>
-    {% for line in object_list %}
-        <!-- <form action="{% url 'core:getgame' line.id %}" method="get">
-            <tr>
-                <td> <input type="checkbox" value="{{line.id}}"></td>
-                <td>{{line.id}}</td>
-                <td>{{line.content_json.jogo}}</td>
-                <td><button type="submit" class="btn btn-primary">Montar Jogo</button></td>
-            </tr>
-        </form>  -->
-    {% endfor %}
-</tbody>
-{% endblock content-table %}
+{% block content %}
+    <h2>Importar Arquivo</h2>
+    <form method="post" action="{% url 'core:index' %}" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="file">Escolha um arquivo:</label>
+            <input type="file" name="file" accept=".csv, .xlsx" required>
+        </div>
+        <button type="submit">Importar</button>
+    </form>
+{% endblock content %}

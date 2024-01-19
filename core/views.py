@@ -1,22 +1,41 @@
-import pandas as pd
 import requests
+
 from django.shortcuts import render
-from django.views.generic import View, ListView
-from django.http.response import HttpResponseRedirect
-from django.urls import reverse_lazy
-from core.models import *
-from core.forms import *
-from core.operations.helpers import get_site, get_asset_type, get_assets
+from django.views.generic import View, CreateView
+
+from core.forms import APIForm
+
+from core.models import Assets, AssetsType, APIConnections, ImportFile, Companies
+
+from core.operations.helpers import get_site, get_asset_type, get_assets, save_companies
+from core.operations.process.import_file import DataImporter
 from core.operations.processes import ConsultYahoo, ConsultAPI, PreviewPrice
+
 from cryptocurrency.btc.value_btc import analyze_bitcoin
 
-class IndexView(View):
+
+class IndexView(CreateView):
+    model = ImportFile
+    fields = ['file',]
     template_name = "index.html"
 
     def get(self, request, *args, **kwargs):
-        var = True
         return render(request, self.template_name)
-        # return HttpResponseRedirect(reverse_lazy("core:index"), "Processado")
+
+    def post(self, request, *args, **kwargs):
+        if 'file' in request.FILES:
+            file = request.FILES.get('file')
+            file_type = request.FILES['file'].name.split('.')[-1]
+            # Cria dataframe
+            data = DataImporter(file,file_type).import_data()
+            # Salva arquivo
+            import_file_instance = ImportFile(file=file)
+            import_file_instance.save()
+            
+            # Salva empresas na tabela
+            # save_companies(data)
+        return render(request, self.template_name, {'imported_data': data})
+
 
 class APIProcessView(View):
     template_name = 'api_process.html'
